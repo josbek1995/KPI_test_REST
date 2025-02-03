@@ -29,11 +29,33 @@ def monthly_sales():
     cur.close()
     return jsonify(data)
 
+@app.route('/monthly-purchases', methods=['GET'])
+@cross_origin()
+def monthly_purchases():
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM KPI_Compras_Mensuales")
+    data = cur.fetchall()
+    cur.close()
+    return jsonify(data)
+
+#-------------------------------#
+
 @app.route('/inventory-turnover', methods=['GET'])
 @cross_origin()
 def inventory_turnover():
     cur = mysql.connection.cursor()
     cur.execute("SELECT * FROM KPI_Rotacion_Inventarios")
+    data = cur.fetchall()
+    cur.close()
+    return jsonify(data)
+
+#-------------------------------#
+
+@app.route('/monthly-sales-per-product', methods=['GET'])
+@cross_origin()
+def monthly_sales_per_product():
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM KPI_Ventas_Mensuales_Producto")
     data = cur.fetchall()
     cur.close()
     return jsonify(data)
@@ -46,6 +68,8 @@ def profitability():
     data = cur.fetchall()
     cur.close()
     return jsonify(data)
+
+#-------------------------------#
 
 @app.route('/products-by-customer', methods=['GET'])
 @cross_origin()
