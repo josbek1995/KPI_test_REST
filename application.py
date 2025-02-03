@@ -2,6 +2,7 @@ from flask import Flask, jsonify
 import os
 from flask_mysqldb import MySQL
 from dotenv import load_dotenv
+from flask_cors import cross_origin
 
 # Load environment variables from .env file
 load_dotenv()
@@ -20,6 +21,7 @@ app.config["MYSQL_PORT"] = int(os.getenv("MYSQL_PORT", 3306))
 mysql = MySQL(app)
 
 @app.route('/monthly-sales', methods=['GET'])
+@cross_origin()
 def monthly_sales():
     cur = mysql.connection.cursor()
     cur.execute("SELECT * FROM KPI_Ventas_Mensuales")
@@ -28,6 +30,7 @@ def monthly_sales():
     return jsonify(data)
 
 @app.route('/inventory-turnover', methods=['GET'])
+@cross_origin()
 def inventory_turnover():
     cur = mysql.connection.cursor()
     cur.execute("SELECT * FROM KPI_Rotacion_Inventarios")
@@ -36,6 +39,7 @@ def inventory_turnover():
     return jsonify(data)
 
 @app.route('/profitability', methods=['GET'])
+@cross_origin()
 def profitability():
     cur = mysql.connection.cursor()
     cur.execute("SELECT * FROM KPI_Rentabilidad")
@@ -44,6 +48,7 @@ def profitability():
     return jsonify(data)
 
 @app.route('/products-by-customer', methods=['GET'])
+@cross_origin()
 def products_by_customer():
     cur = mysql.connection.cursor()
     cur.execute("SELECT * FROM KPI_Productos_Por_Cliente")
