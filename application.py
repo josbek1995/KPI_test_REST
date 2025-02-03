@@ -52,4 +52,4 @@ def products_by_customer():
     return jsonify(data)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
